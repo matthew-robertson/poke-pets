@@ -1,0 +1,46 @@
+Notes+Process:
+
+1) Get a list of all pokemon (up to gen 7, because the data's out of date)
+1) Filter out the pokemon without eggs. They make bad pets, since they can't breed.
+1) Filter out ghosts. We're not dealing with dead pokemon. That's fucked up.
+1) Remove any pokemon bigger than a zebstrika. You're not keeping something bigger than a horse as a house pet
+1) Remove any pokemon that's not fully-evolved. Pokemon presumably become more difficult to care for as they evolve, and this will help normalize stats, sort of. This assumes a world in which evolution can't be halted, I guess.
+1) Calculate any extra stats we want (notably, sweeper_stat + others, as defined by PokemonDB, to approximate danger)
+1) Normalize the stats we'll be working with
+1) Calculate pet suitability
+1) Sort, and manually check a couple against pokedex entries, which are nonsense, but whatever.
+
+Attributes in the model:
+1) Danger to humans: 
+    1) Determined by modified sweeper stat max(spd + attack, spd+sp_atk)
+1) Danger from humans:
+    1) We assume humans are normal type, and use the pokemon's defensive abilities against normal.
+1) Exercise needs:
+    1) Determined by Speed and experience, straightup added together
+    1) Look, I could have determined home ranges by going through each pokemon and determining the size (in m2) of the smallest area (route, pond, whatever) each pokemon is found in in the games, but Fuck That. I really didn't have time
+1) Happiness with humans:
+    1) Determined by inverse base happiness
+    1) inverse Capture Rate
+1) Food requirements:
+    1) Approximated BMR by using Mifflin St Jeor equation, modified to account for fire, electric, and ice types (4, 2, and 0.25 respectively. Most of them are literally on fire, after all)
+
+
+Observations:
+High caloric pokemon:
+    Metagross
+    Emboar
+    Magmortar
+Low caloric pokemon:
+    Comfey
+    Wishiwashi
+    Dedenne
+
+Good pets:
+    Shuckle,
+    Bastiodon
+    Blissey
+Bad pets:
+    Houndoom
+    Metagross
+    Salamence
+    Gallade
